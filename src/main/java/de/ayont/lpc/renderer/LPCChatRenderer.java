@@ -25,7 +25,7 @@ public class LPCChatRenderer implements ChatRenderer {
     private final MiniMessage miniMessage;
     private final boolean hasPapi;
 
-    private final Map<String, String> legacyToMiniMessageColors = new HashMap<>() {
+    private final Map<String, String> legacyToMiniMessageCodes = new HashMap<>() {
         {
             put("&0", "<black>");
             put("&1", "<dark_blue>");
@@ -43,6 +43,12 @@ public class LPCChatRenderer implements ChatRenderer {
             put("&d", "<light_purple>");
             put("&e", "<yellow>");
             put("&f", "<white>");
+            put("&k", "<obf>");
+            put("&l", "<b>");
+            put("&m", "<st>");
+            put("&n", "<u>");
+            put("&o", "<i>");
+            put("&r", "<reset>");
         }
     };
 
@@ -64,7 +70,7 @@ public class LPCChatRenderer implements ChatRenderer {
         String plainMessage = PlainTextComponentSerializer.plainText().serialize(message);
 
         if (hasPermission) {
-            for (Map.Entry<String, String> entry : legacyToMiniMessageColors.entrySet()) {
+            for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {
                 plainMessage = plainMessage.replace(entry.getKey(), entry.getValue());
             }
         }
@@ -102,7 +108,7 @@ public class LPCChatRenderer implements ChatRenderer {
                 .replace("{message-color}", metaData.getMetaValue("message-color") != null ? Objects.requireNonNull(metaData.getMetaValue("message-color")) : "");
 
         if (!hasPermission) {
-            for (Map.Entry<String, String> entry : legacyToMiniMessageColors.entrySet()) {
+            for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {
                 plainMessage = plainMessage.replace(entry.getValue(), entry.getKey());
             }
         }
