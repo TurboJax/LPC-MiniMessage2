@@ -34,15 +34,15 @@ public class SpigotChatRenderer {
         final String group =
                 Objects.requireNonNull(metaData.getPrimaryGroup(), "Primary group cannot be null");
 
-        String plainMessage =
-                source.hasPermission("lpc.chatcolor") ? message : miniMessage.stripTags(message);
+        message = source.hasPermission("lpc.chatcolor") ? message : miniMessage.stripTags(message);
 
         // Defaulting to the group format
         String format = plugin.getConfig().getString("group-formats." + group);
 
         // Searching for an applicable track format
-        if (format == null) {            
-            ConfigurationSection trackFormatsSection = plugin.getConfig().getConfigurationSection("track-formats");
+        if (format == null) {
+            ConfigurationSection trackFormatsSection =
+                    plugin.getConfig().getConfigurationSection("track-formats");
             if (trackFormatsSection != null) {
                 for (String trackName : trackFormatsSection.getKeys(false)) {
                     Track track = this.luckPerms.getTrackManager().getTrack(trackName);
@@ -78,7 +78,7 @@ public class SpigotChatRenderer {
                                 metaData.getMetaValue("message-color") != null
                                         ? metaData.getMetaValue("message-color")
                                         : "")
-                        .replace("{message}", plainMessage);
+                        .replace("{message}", message);
 
         if (hasPapi) {
             format = PlaceholderAPI.setPlaceholders(source, format);
