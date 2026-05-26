@@ -33,7 +33,7 @@ public class SpigotChatRenderer {
         final CachedMetaData metaData = this.luckPerms.getPlayerAdapter(Player.class).getMetaData(source);
         final String group = Objects.requireNonNull(metaData.getPrimaryGroup(), "Primary group cannot be null");
 
-        String plainMessage = source.hasPermission("lpc.chatcolor") ? message : stripMiniMessageTags(message);
+        String plainMessage = source.hasPermission("lpc.chatcolor") ? message : miniMessage.stripTags(message);
 
         String formatKey = "group-formats." + group;
         String format = plugin.getConfig().getString(formatKey);
@@ -73,9 +73,5 @@ public class SpigotChatRenderer {
         }
 
         return miniMessage.deserialize(format);
-    }
-
-    private String stripMiniMessageTags(String message) {
-        return message.replaceAll("<[^>]*>", "");
     }
 }
