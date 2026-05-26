@@ -23,6 +23,22 @@ repositories {
     }
 }
 
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:$paper"
+    compileOnly "net.luckperms:api:$luckpermsapi"
+    compileOnly "me.clip:placeholderapi:$papi"
+    implementation "net.kyori:adventure-platform-bukkit:$platformbukkit"
+    implementation "net.kyori:adventure-text-minimessage:$adventure"
+}
+
+shadowJar {
+    archiveFileName.set('LPC-Minimessage.jar')
+    mergeServiceFiles {
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+    }
+}
+
 spotless {
     format 'misc', {
         // define the files to apply `misc` to
@@ -46,22 +62,6 @@ spotless {
             .formatJavadoc(false)
             .reorderImports(false)
             .groupArtifact('com.google.googlejavaformat:google-java-format')
-    }
-}
-
-dependencies {
-    compileOnly "io.papermc.paper:paper-api:$paper"
-    compileOnly "net.luckperms:api:$luckpermsapi"
-    compileOnly "me.clip:placeholderapi:$papi"
-    implementation "net.kyori:adventure-platform-bukkit:$platformbukkit"
-    implementation "net.kyori:adventure-text-minimessage:$adventure"
-}
-
-shadowJar {
-    archiveFileName.set('LPC-Minimessage.jar')
-    mergeServiceFiles {
-        exclude 'META-INF/*.DSA'
-        exclude 'META-INF/*.RSA'
     }
 }
 
