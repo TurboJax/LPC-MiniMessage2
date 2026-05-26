@@ -37,25 +37,23 @@ public class SpigotChatRenderer {
         String plainMessage =
                 source.hasPermission("lpc.chatcolor") ? message : miniMessage.stripTags(message);
 
-        String formatKey = "group-formats." + group;
-        String format = plugin.getConfig().getString(formatKey);
+        // Defaulting to the group format
+        String format = plugin.getConfig().getString("group-formats." + group);
 
-        if (format == null) {
-            ConfigurationSection trackFormatsSection =
-                    plugin.getConfig().getConfigurationSection("track-formats");
+        // Searching for an applicable track format
+        if (format == null) {            
+            ConfigurationSection trackFormatsSection = plugin.getConfig().getConfigurationSection("track-formats");
             if (trackFormatsSection != null) {
                 for (String trackName : trackFormatsSection.getKeys(false)) {
                     Track track = this.luckPerms.getTrackManager().getTrack(trackName);
                     if (track == null) continue;
-                    if (track.containsGroup(group)) {
-                        formatKey = "track-formats." + trackName;
-                        format = plugin.getConfig().getString(formatKey);
-                        break;
-                    }
+                    if (!track.containsGroup(group)) continue;
+                    format = plugin.getConfig().getString("track-formats." + trackName);
                 }
             }
         }
 
+        // Falling back to the default format
         if (format == null) {
             format = plugin.getConfig().getString("chat-format");
         }
