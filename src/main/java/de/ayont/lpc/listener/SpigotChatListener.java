@@ -85,14 +85,7 @@ public class SpigotChatListener implements Listener {
                             }
                         } catch (NoSuchMethodError e) {
                             String displayName = meta.getDisplayName();
-                            itemName = MiniMessage.miniMessage().serialize(
-                                    LegacyComponentSerializer.builder()
-                                            .useUnusualXRepeatedCharacterHexFormat()
-                                            .hexColors()
-                                            .character('§')
-                                            .build()
-                                            .deserialize(displayName)
-                            );
+                            itemName = MiniMessage.miniMessage().serialize(LPC.getLegacySerializer().deserialize(displayName));
                         }
                     }
 
@@ -108,14 +101,7 @@ public class SpigotChatListener implements Listener {
                             java.util.List<String> lore = meta.getLore();
                             if (lore != null) {
                                 for (String line : lore) {
-                                    hoverText.append("\n").append(MiniMessage.miniMessage().serialize(
-                                            LegacyComponentSerializer.builder()
-                                                    .useUnusualXRepeatedCharacterHexFormat()
-                                                    .hexColors()
-                                                    .character('§')
-                                                    .build()
-                                                    .deserialize(line)
-                                    ));
+                                    hoverText.append("\n").append(MiniMessage.miniMessage().serialize(LPC.getLegacySerializer().deserialize(line)));
                                 }
                             }
                         }
@@ -127,10 +113,6 @@ public class SpigotChatListener implements Listener {
             }
         }
 
-        event.setFormat(LegacyComponentSerializer.builder()
-                .useUnusualXRepeatedCharacterHexFormat()
-                .hexColors()
-                .build()
-                .serialize(chatRenderer.render(event.getPlayer(), message)));
+        event.setFormat(LPC.getLegacySerializer().serialize(chatRenderer.render(event.getPlayer(), message)));
     }
 }

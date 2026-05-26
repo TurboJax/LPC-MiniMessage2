@@ -24,7 +24,7 @@ public class SpigotChatRenderer {
     public SpigotChatRenderer(LPC plugin) {
         this.luckPerms = LuckPermsProvider.get();
         this.plugin = plugin;
-        this.miniMessage = MiniMessage.builder().build();
+        this.miniMessage = MiniMessage.miniMessage();
         PluginManager pluginManager = plugin.getServer().getPluginManager();
         hasPapi = pluginManager.getPlugin("PlaceholderAPI") != null;
     }
