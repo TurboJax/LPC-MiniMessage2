@@ -73,14 +73,12 @@ public class SpigotChatRenderer {
                         .replace(
                                 "{username-color}",
                                 metaData.getMetaValue("username-color") != null
-                                        ? Objects.requireNonNull(
-                                                metaData.getMetaValue("username-color"))
+                                        ? metaData.getMetaValue("username-color")
                                         : "")
                         .replace(
                                 "{message-color}",
                                 metaData.getMetaValue("message-color") != null
-                                        ? Objects.requireNonNull(
-                                                metaData.getMetaValue("message-color"))
+                                        ? metaData.getMetaValue("message-color")
                                         : "")
                         .replace("{message}", plainMessage);
 
