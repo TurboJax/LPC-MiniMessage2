@@ -2,11 +2,10 @@ name: Gradle publish
 
 on:
   release:
-    types: [ created ]
+    types: [created]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     timeout-minutes: 3
     permissions:
@@ -19,7 +18,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-          cache: 'gradle'
+          cache: "gradle"
       - uses: gradle/actions/setup-gradle@v4
       - name: Configure Git
         run: git config --global user.email "no-reply@github.com" && git config --global user.name "Github Actions"

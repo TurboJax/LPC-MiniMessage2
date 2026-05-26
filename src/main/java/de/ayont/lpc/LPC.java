@@ -2,19 +2,19 @@ package de.ayont.lpc;
 
 import de.ayont.lpc.commands.LPCCommand;
 import de.ayont.lpc.listener.AsyncChatListener;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import de.ayont.lpc.listener.SpigotChatListener;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.plugin.java.JavaPlugin;
-
 
 public final class LPC extends JavaPlugin {
     private boolean isPaper;
 
-    private static final LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.builder()
-            .character('§')
-            .hexColors()
-            .useUnusualXRepeatedCharacterHexFormat()
-            .build();
+    private static final LegacyComponentSerializer legacySerializer =
+            LegacyComponentSerializer.builder()
+                    .character('§')
+                    .hexColors()
+                    .useUnusualXRepeatedCharacterHexFormat()
+                    .build();
 
     public static LegacyComponentSerializer getLegacySerializer() {
         return legacySerializer;
@@ -54,5 +54,4 @@ public final class LPC extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new SpigotChatListener(this), this);
         }
     }
-
 }

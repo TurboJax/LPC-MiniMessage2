@@ -2,6 +2,7 @@ package de.ayont.lpc.renderer;
 
 import de.ayont.lpc.LPC;
 import io.papermc.paper.chat.ChatRenderer;
+import java.util.*;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -16,8 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
-
 public class LPCChatRenderer implements ChatRenderer {
 
     private final LuckPerms luckPerms;
@@ -25,32 +24,33 @@ public class LPCChatRenderer implements ChatRenderer {
     private final MiniMessage miniMessage;
     private final boolean hasPapi;
 
-    private final Map<String, String> legacyToMiniMessageCodes = new HashMap<>() {
-        {
-            put("&0", "<black>");
-            put("&1", "<dark_blue>");
-            put("&2", "<dark_green>");
-            put("&3", "<dark_aqua>");
-            put("&4", "<dark_red>");
-            put("&5", "<dark_purple>");
-            put("&6", "<gold>");
-            put("&7", "<gray>");
-            put("&8", "<dark_gray>");
-            put("&9", "<blue>");
-            put("&a", "<green>");
-            put("&b", "<aqua>");
-            put("&c", "<red>");
-            put("&d", "<light_purple>");
-            put("&e", "<yellow>");
-            put("&f", "<white>");
-            put("&k", "<obf>");
-            put("&l", "<b>");
-            put("&m", "<st>");
-            put("&n", "<u>");
-            put("&o", "<i>");
-            put("&r", "<reset>");
-        }
-    };
+    private final Map<String, String> legacyToMiniMessageCodes =
+            new HashMap<>() {
+                {
+                    put("&0", "<black>");
+                    put("&1", "<dark_blue>");
+                    put("&2", "<dark_green>");
+                    put("&3", "<dark_aqua>");
+                    put("&4", "<dark_red>");
+                    put("&5", "<dark_purple>");
+                    put("&6", "<gold>");
+                    put("&7", "<gray>");
+                    put("&8", "<dark_gray>");
+                    put("&9", "<blue>");
+                    put("&a", "<green>");
+                    put("&b", "<aqua>");
+                    put("&c", "<red>");
+                    put("&d", "<light_purple>");
+                    put("&e", "<yellow>");
+                    put("&f", "<white>");
+                    put("&k", "<obf>");
+                    put("&l", "<b>");
+                    put("&m", "<st>");
+                    put("&n", "<u>");
+                    put("&o", "<i>");
+                    put("&r", "<reset>");
+                }
+            };
 
     public LPCChatRenderer(LPC plugin) {
         this.luckPerms = LuckPermsProvider.get();
@@ -61,9 +61,15 @@ public class LPCChatRenderer implements ChatRenderer {
     }
 
     @Override
-    public @NotNull Component render(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
-        final CachedMetaData metaData = this.luckPerms.getPlayerAdapter(Player.class).getMetaData(source);
-        final String group = Objects.requireNonNull(metaData.getPrimaryGroup(), "Primary group cannot be null");
+    public @NotNull Component render(
+            @NotNull Player source,
+            @NotNull Component sourceDisplayName,
+            @NotNull Component message,
+            @NotNull Audience viewer) {
+        final CachedMetaData metaData =
+                this.luckPerms.getPlayerAdapter(Player.class).getMetaData(source);
+        final String group =
+                Objects.requireNonNull(metaData.getPrimaryGroup(), "Primary group cannot be null");
 
         boolean hasPermission = source.hasPermission("lpc.chatcolor");
 
@@ -79,7 +85,8 @@ public class LPCChatRenderer implements ChatRenderer {
         String format = plugin.getConfig().getString(formatKey);
 
         if (format == null) {
-            ConfigurationSection trackFormatsSection = plugin.getConfig().getConfigurationSection("track-formats");
+            ConfigurationSection trackFormatsSection =
+                    plugin.getConfig().getConfigurationSection("track-formats");
             if (trackFormatsSection != null) {
                 for (String trackName : trackFormatsSection.getKeys(false)) {
                     Track track = this.luckPerms.getTrackManager().getTrack(trackName);
@@ -97,15 +104,31 @@ public class LPCChatRenderer implements ChatRenderer {
             format = plugin.getConfig().getString("chat-format");
         }
 
-        format = format.replace("{prefix}", metaData.getPrefix() != null ? metaData.getPrefix() : "")
-                .replace("{suffix}", metaData.getSuffix() != null ? metaData.getSuffix() : "")
-                .replace("{prefixes}", String.join(" ", metaData.getPrefixes().values()))
-                .replace("{suffixes}", String.join(" ", metaData.getSuffixes().values()))
-                .replace("{world}", source.getWorld().getName())
-                .replace("{name}", source.getName())
-                .replace("{displayname}", PlainTextComponentSerializer.plainText().serialize(source.displayName()))
-                .replace("{username-color}", metaData.getMetaValue("username-color") != null ? Objects.requireNonNull(metaData.getMetaValue("username-color")) : "")
-                .replace("{message-color}", metaData.getMetaValue("message-color") != null ? Objects.requireNonNull(metaData.getMetaValue("message-color")) : "");
+        format =
+                format.replace("{prefix}", metaData.getPrefix() != null ? metaData.getPrefix() : "")
+                        .replace(
+                                "{suffix}",
+                                metaData.getSuffix() != null ? metaData.getSuffix() : "")
+                        .replace("{prefixes}", String.join(" ", metaData.getPrefixes().values()))
+                        .replace("{suffixes}", String.join(" ", metaData.getSuffixes().values()))
+                        .replace("{world}", source.getWorld().getName())
+                        .replace("{name}", source.getName())
+                        .replace(
+                                "{displayname}",
+                                PlainTextComponentSerializer.plainText()
+                                        .serialize(source.displayName()))
+                        .replace(
+                                "{username-color}",
+                                metaData.getMetaValue("username-color") != null
+                                        ? Objects.requireNonNull(
+                                                metaData.getMetaValue("username-color"))
+                                        : "")
+                        .replace(
+                                "{message-color}",
+                                metaData.getMetaValue("message-color") != null
+                                        ? Objects.requireNonNull(
+                                                metaData.getMetaValue("message-color"))
+                                        : "");
 
         if (!hasPermission) {
             for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {

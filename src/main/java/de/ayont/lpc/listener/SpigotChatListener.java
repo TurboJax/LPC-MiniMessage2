@@ -1,10 +1,11 @@
 package de.ayont.lpc.listener;
 
 import de.ayont.lpc.LPC;
-import net.kyori.adventure.text.Component;
 import de.ayont.lpc.renderer.SpigotChatRenderer;
+import java.util.HashMap;
+import java.util.Map;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,10 +13,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class SpigotChatListener implements Listener {
     private final LPC plugin;
@@ -69,7 +66,8 @@ public class SpigotChatListener implements Listener {
             }
         }
 
-        if (plugin.getConfig().getBoolean("use-item-placeholder", false) && event.getPlayer().hasPermission("lpc.itemplaceholder")) {
+        if (plugin.getConfig().getBoolean("use-item-placeholder", false)
+                && event.getPlayer().hasPermission("lpc.itemplaceholder")) {
             final ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
             if (!item.getType().equals(Material.AIR)) {
                 String itemName = item.getType().toString().toLowerCase().replace("_", " ");
@@ -85,7 +83,11 @@ public class SpigotChatListener implements Listener {
                             }
                         } catch (NoSuchMethodError e) {
                             String displayName = meta.getDisplayName();
-                            itemName = MiniMessage.miniMessage().serialize(LPC.getLegacySerializer().deserialize(displayName));
+                            itemName =
+                                    MiniMessage.miniMessage()
+                                            .serialize(
+                                                    LPC.getLegacySerializer()
+                                                            .deserialize(displayName));
                         }
                     }
 
@@ -94,25 +96,41 @@ public class SpigotChatListener implements Listener {
                             java.util.List<Component> lore = meta.lore();
                             if (lore != null) {
                                 for (Component line : lore) {
-                                    hoverText.append("\n").append(MiniMessage.miniMessage().serialize(line));
+                                    hoverText
+                                            .append("\n")
+                                            .append(MiniMessage.miniMessage().serialize(line));
                                 }
                             }
                         } catch (NoSuchMethodError e) {
                             java.util.List<String> lore = meta.getLore();
                             if (lore != null) {
                                 for (String line : lore) {
-                                    hoverText.append("\n").append(MiniMessage.miniMessage().serialize(LPC.getLegacySerializer().deserialize(line)));
+                                    hoverText
+                                            .append("\n")
+                                            .append(
+                                                    MiniMessage.miniMessage()
+                                                            .serialize(
+                                                                    LPC.getLegacySerializer()
+                                                                            .deserialize(line)));
                                 }
                             }
                         }
                     }
 
-                    itemName = "<hover:show_text:'" + itemName + hoverText.toString() + "'>" + itemName + "</hover>";
+                    itemName =
+                            "<hover:show_text:'"
+                                    + itemName
+                                    + hoverText.toString()
+                                    + "'>"
+                                    + itemName
+                                    + "</hover>";
                 }
                 message = message.replaceFirst("(?i)\\[item]", itemName);
             }
         }
 
-        event.setFormat(LPC.getLegacySerializer().serialize(chatRenderer.render(event.getPlayer(), message)));
+        event.setFormat(
+                LPC.getLegacySerializer()
+                        .serialize(chatRenderer.render(event.getPlayer(), message)));
     }
 }
