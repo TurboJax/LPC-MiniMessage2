@@ -13,7 +13,6 @@ import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 
 public class LPCCommand implements CommandExecutor, TabCompleter {
-
     private final LPC plugin;
 
     public LPCCommand(LPC plugin) {
@@ -34,7 +33,7 @@ public class LPCCommand implements CommandExecutor, TabCompleter {
                                     "reload-message", "<green>Reloaded LPC Configuration!</green>");
             Component message = MiniMessage.miniMessage().deserialize(rawReloadMessage);
 
-            if (plugin.getServer().getName().toLowerCase().contains("paper")) {
+            if (plugin.isPaper()) {
                 sender.sendMessage(message);
             } else {
                 sender.sendMessage(LPC.getLegacySerializer().serialize(message));

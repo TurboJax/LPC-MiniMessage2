@@ -54,4 +54,8 @@ public final class LPC extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new SpigotChatListener(this), this);
         }
     }
+
+    public boolean isPaper() {
+        return isPaper;
+    }
 }
