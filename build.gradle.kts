@@ -6,11 +6,7 @@ plugins {
     alias(libs.plugins.spotless)
 }
 
-subprojects {
-    apply(plugin = "java-library")
-    apply(plugin = "com.gradleup.shadow")
-    apply(plugin = "com.diffplug.spotless")
-
+allprojects {
     group = "de.ayont"
     version = "3.8.0"
 
@@ -22,6 +18,12 @@ subprojects {
 
         maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     }
+}
+
+subprojects {
+    apply(plugin = "java-library")
+    apply(plugin = "com.gradleup.shadow")
+    apply(plugin = "com.diffplug.spotless")
 
     dependencies {
         compileOnly(rootProject.libs.luckperms)
