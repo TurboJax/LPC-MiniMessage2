@@ -3,6 +3,8 @@ package de.ayont.lpc.paper;
 import de.ayont.lpc.api.LPC;
 import de.ayont.lpc.api.LPCChatRenderer;
 import io.papermc.paper.chat.ChatRenderer;
+import java.util.Map;
+import java.util.regex.Pattern;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -21,9 +23,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
-import java.util.Map;
-import java.util.regex.Pattern;
-
 public class PaperChatRenderer implements LPCChatRenderer, ChatRenderer {
     private final LuckPerms luckPerms;
     private final JavaPlugin plugin;
@@ -38,8 +37,14 @@ public class PaperChatRenderer implements LPCChatRenderer, ChatRenderer {
     }
 
     @Override
-    public @NonNull Component render(@NonNull Player source, @NonNull Component sourceDisplayName, @NonNull Component message, @NonNull Audience viewer) {
-        return render(luckPerms.getPlayerAdapter(Player.class).getUser(source), PlainTextComponentSerializer.plainText().serialize(message));
+    public @NonNull Component render(
+            @NonNull Player source,
+            @NonNull Component sourceDisplayName,
+            @NonNull Component message,
+            @NonNull Audience viewer) {
+        return render(
+                luckPerms.getPlayerAdapter(Player.class).getUser(source),
+                PlainTextComponentSerializer.plainText().serialize(message));
     }
 
     @Override

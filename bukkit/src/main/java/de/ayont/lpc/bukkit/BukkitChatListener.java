@@ -20,9 +20,9 @@ public class BukkitChatListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onChat(AsyncPlayerChatEvent event) {
-        User user = LuckPermsProvider.get().getPlayerAdapter(Player.class).getUser(event.getPlayer());
+        User user =
+                LuckPermsProvider.get().getPlayerAdapter(Player.class).getUser(event.getPlayer());
         event.setFormat(
-                LPC.getLegacySerializer()
-                        .serialize(chatRenderer.render(user, event.getMessage())));
+                LPC.getLegacySerializer().serialize(chatRenderer.render(user, event.getMessage())));
     }
 }

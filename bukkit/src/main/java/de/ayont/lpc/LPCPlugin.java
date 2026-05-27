@@ -1,8 +1,8 @@
 package de.ayont.lpc;
 
 import de.ayont.lpc.api.LPC;
-import de.ayont.lpc.commands.LPCCommand;
 import de.ayont.lpc.bukkit.BukkitChatListener;
+import de.ayont.lpc.commands.LPCCommand;
 import de.ayont.lpc.paper.PaperChatListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;

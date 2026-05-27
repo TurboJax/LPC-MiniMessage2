@@ -1,11 +1,10 @@
 package de.ayont.lpc.commands;
 
+import de.ayont.lpc.LPCPlugin;
+import de.ayont.lpc.api.LPC;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import de.ayont.lpc.LPCPlugin;
-import de.ayont.lpc.api.LPC;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.ayont.lpc.api.LPC;
 import de.ayont.lpc.api.LPCChatRenderer;
+import java.util.Map;
+import java.util.regex.Pattern;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -27,9 +29,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-import java.util.regex.Pattern;
-
 public class BukkitChatRenderer implements LPCChatRenderer {
     private final LuckPerms luckPerms;
     private final JavaPlugin plugin;
@@ -46,7 +45,7 @@ public class BukkitChatRenderer implements LPCChatRenderer {
     @Override
     public @NotNull Component render(User user, String plainMessage) {
         final CachedMetaData metaData = user.getCachedData().getMetaData();
-        
+
         final Player player = Bukkit.getPlayer(user.getUniqueId());
         assert player != null : "Player needs to have a valid UUID.";
 
@@ -74,9 +73,10 @@ public class BukkitChatRenderer implements LPCChatRenderer {
                 }
 
                 // Setting up the Item deserializer
-                Gson gson = new GsonBuilder()
-                        .registerTypeAdapter(Item.class, new ItemSerializer())
-                        .create();
+                Gson gson =
+                        new GsonBuilder()
+                                .registerTypeAdapter(Item.class, new ItemSerializer())
+                                .create();
 
                 // Converting the item nbt to a HoverEvent.
                 Item hoverItem = gson.fromJson(meta.getAsString(), Item.class);
@@ -93,7 +93,9 @@ public class BukkitChatRenderer implements LPCChatRenderer {
                 BaseComponent component = ComponentSerializer.deserialize(displayName);
                 component.setHoverEvent(hoverEvent);
 
-                var adventure = BungeeComponentSerializer.get().deserialize(new BaseComponent[]{component});
+                var adventure =
+                        BungeeComponentSerializer.get()
+                                .deserialize(new BaseComponent[] {component});
 
                 String hoverTag = miniMessage.serialize(adventure);
 
@@ -139,8 +141,16 @@ public class BukkitChatRenderer implements LPCChatRenderer {
                         .replace("{world}", player.getWorld().getName())
                         .replace("{name}", player.getName())
                         .replace("{displayname}", ChatColor.stripColor(player.getDisplayName()))
-                        .replace("{username-color}", metaData.getMetaValue("username-color") != null ? metaData.getMetaValue("username-color") : "")
-                        .replace("{message-color}", metaData.getMetaValue("message-color") != null ? metaData.getMetaValue("message-color") : "");
+                        .replace(
+                                "{username-color}",
+                                metaData.getMetaValue("username-color") != null
+                                        ? metaData.getMetaValue("username-color")
+                                        : "")
+                        .replace(
+                                "{message-color}",
+                                metaData.getMetaValue("message-color") != null
+                                        ? metaData.getMetaValue("message-color")
+                                        : "");
 
         // Replacing the main message part of the format.
         format = format.replace("{message}", plainMessage);
