@@ -1,38 +1,50 @@
-package de.ayont.lpc.renderer;
+package de.ayont.lpc.paper;
 
-import de.ayont.lpc.LPC;
-import java.util.Map;
-import java.util.regex.Pattern;
+import de.ayont.lpc.api.LPC;
+import de.ayont.lpc.api.LPCChatRenderer;
+import io.papermc.paper.chat.ChatRenderer;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.cacheddata.CachedMetaData;
+import net.luckperms.api.model.user.User;
 import net.luckperms.api.track.Track;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
-public class LPCChatRenderer {
+import java.util.Map;
+import java.util.regex.Pattern;
+
+public class PaperChatRenderer implements LPCChatRenderer, ChatRenderer {
     private final LuckPerms luckPerms;
-    private final LPC plugin;
+    private final JavaPlugin plugin;
     private final MiniMessage miniMessage;
     private final boolean hasPapi;
 
-    public LPCChatRenderer(LPC plugin) {
+    public PaperChatRenderer(JavaPlugin plugin) {
         this.luckPerms = LuckPermsProvider.get();
         this.plugin = plugin;
         this.miniMessage = MiniMessage.miniMessage();
         hasPapi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
     }
 
-    public @NotNull Component render(Player player, String plainMessage) {
-        final CachedMetaData metaData =
-                this.luckPerms.getPlayerAdapter(Player.class).getMetaData(player);
+    @Override
+    public @NonNull Component render(@NonNull Player source, @NonNull Component sourceDisplayName, @NonNull Component message, @NonNull Audience viewer) {
+        return render(source, PlainTextComponentSerializer.plainText().serialize(message));
+    }
+
+    @Override
+    public @NotNull Component render(User user, String plainMessage) {
+        final CachedMetaData metaData = user.getCachedData().getMetaData();
         final String group = metaData.getPrimaryGroup();
         assert group != null : "Primary group cannot be null";
 
