@@ -1,9 +1,13 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shadowJar
-
 plugins {
     `java-library`
-    alias(libs.plugins.shadow) apply false
+    alias(libs.plugins.shadow)
     alias(libs.plugins.spotless)
+}
+
+dependencies {
+    implementation(project(":api"))
+    implementation(project(":bukkit"))
+    implementation(project(":paper"))
 }
 
 allprojects {
@@ -22,7 +26,6 @@ allprojects {
 
 subprojects {
     apply(plugin = "java-library")
-    apply(plugin = "com.gradleup.shadow")
     apply(plugin = "com.diffplug.spotless")
 
     dependencies {
