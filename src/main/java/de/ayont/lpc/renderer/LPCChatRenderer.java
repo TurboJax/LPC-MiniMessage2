@@ -73,12 +73,14 @@ public class LPCChatRenderer implements ChatRenderer {
 
         String plainMessage = PlainTextComponentSerializer.plainText().serialize(message);
 
-        if (source.hasPermission("lpc.chatcolor")) {
-            for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {
-                plainMessage = plainMessage.replace(entry.getKey(), entry.getValue());
-            }
-        } else {
-            miniMessage.escapeTags(plainMessage);
+        // Serializing legacy codes
+        for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {
+            plainMessage = plainMessage.replace(entry.getKey(), entry.getValue());
+        }
+
+        // Escaping all tags if the player doesn't have the permission to use the formatter
+        if (!source.hasPermission("lpc.chatcolor")) {
+            plainMessage = miniMessage.escapeTags(plainMessage);
         }
 
         String formatKey = "group-formats." + group;
