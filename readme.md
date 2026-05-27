@@ -1,4 +1,4 @@
-![LPC Banner](https://cdn.varilx.de/raw/fwtRZS.png)
+![LPC Banner](./banner.png)
 
 <p align="center">
   <a href="https://modrinth.com/plugin/lpc-chat">
