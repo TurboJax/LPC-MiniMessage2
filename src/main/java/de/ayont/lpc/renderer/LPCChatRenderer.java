@@ -2,7 +2,6 @@ package de.ayont.lpc.renderer;
 
 import de.ayont.lpc.LPC;
 import io.papermc.paper.chat.ChatRenderer;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -26,34 +25,6 @@ public class LPCChatRenderer implements ChatRenderer {
     private final MiniMessage miniMessage;
     private final boolean hasPapi;
 
-    private final Map<String, String> legacyToMiniMessageCodes =
-            new HashMap<>() {
-                {
-                    put("&0", "<black>");
-                    put("&1", "<dark_blue>");
-                    put("&2", "<dark_green>");
-                    put("&3", "<dark_aqua>");
-                    put("&4", "<dark_red>");
-                    put("&5", "<dark_purple>");
-                    put("&6", "<gold>");
-                    put("&7", "<gray>");
-                    put("&8", "<dark_gray>");
-                    put("&9", "<blue>");
-                    put("&a", "<green>");
-                    put("&b", "<aqua>");
-                    put("&c", "<red>");
-                    put("&d", "<light_purple>");
-                    put("&e", "<yellow>");
-                    put("&f", "<white>");
-                    put("&k", "<obf>");
-                    put("&l", "<b>");
-                    put("&m", "<st>");
-                    put("&n", "<u>");
-                    put("&o", "<i>");
-                    put("&r", "<reset>");
-                }
-            };
-
     public LPCChatRenderer(LPC plugin) {
         this.luckPerms = LuckPermsProvider.get();
         this.plugin = plugin;
@@ -75,7 +46,7 @@ public class LPCChatRenderer implements ChatRenderer {
         String plainMessage = PlainTextComponentSerializer.plainText().serialize(message);
 
         // Replacing legacy codes
-        for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {
+        for (Map.Entry<String, String> entry : LPC.getLegacyToMiniMessageCodes().entrySet()) {
             plainMessage = plainMessage.replace(entry.getKey(), entry.getValue());
         }
 

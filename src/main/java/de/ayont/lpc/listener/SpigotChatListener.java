@@ -2,7 +2,6 @@ package de.ayont.lpc.listener;
 
 import de.ayont.lpc.LPC;
 import de.ayont.lpc.renderer.SpigotChatRenderer;
-import java.util.HashMap;
 import java.util.Map;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -17,38 +16,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class SpigotChatListener implements Listener {
     private final LPC plugin;
     private final SpigotChatRenderer chatRenderer;
-    private final Map<String, String> legacyToMiniMessageColors;
 
     public SpigotChatListener(LPC plugin) {
         this.plugin = plugin;
         this.chatRenderer = new SpigotChatRenderer(plugin);
-        this.legacyToMiniMessageColors = new HashMap<>();
-        initColorMappings();
-    }
-
-    private void initColorMappings() {
-        legacyToMiniMessageColors.put("&0", "<black>");
-        legacyToMiniMessageColors.put("&1", "<dark_blue>");
-        legacyToMiniMessageColors.put("&2", "<dark_green>");
-        legacyToMiniMessageColors.put("&3", "<dark_aqua>");
-        legacyToMiniMessageColors.put("&4", "<dark_red>");
-        legacyToMiniMessageColors.put("&5", "<dark_purple>");
-        legacyToMiniMessageColors.put("&6", "<gold>");
-        legacyToMiniMessageColors.put("&7", "<gray>");
-        legacyToMiniMessageColors.put("&8", "<dark_gray>");
-        legacyToMiniMessageColors.put("&9", "<blue>");
-        legacyToMiniMessageColors.put("&a", "<green>");
-        legacyToMiniMessageColors.put("&b", "<aqua>");
-        legacyToMiniMessageColors.put("&c", "<red>");
-        legacyToMiniMessageColors.put("&d", "<light_purple>");
-        legacyToMiniMessageColors.put("&e", "<yellow>");
-        legacyToMiniMessageColors.put("&f", "<white>");
-        legacyToMiniMessageColors.put("&l", "<bold>");
-        legacyToMiniMessageColors.put("&o", "<italic>");
-        legacyToMiniMessageColors.put("&n", "<underlined>");
-        legacyToMiniMessageColors.put("&m", "<strikethrough>");
-        legacyToMiniMessageColors.put("&k", "<obfuscated>");
-        legacyToMiniMessageColors.put("&r", "<reset>");
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -57,11 +28,11 @@ public class SpigotChatListener implements Listener {
 
         if (event.getPlayer().hasPermission("lpc.chatcolor")) {
             message = message.replaceAll("§", "&");
-            for (Map.Entry<String, String> entry : legacyToMiniMessageColors.entrySet()) {
+            for (Map.Entry<String, String> entry : LPC.getLegacyToMiniMessageCodes().entrySet()) {
                 message = message.replace(entry.getKey(), entry.getValue());
             }
         } else {
-            for (Map.Entry<String, String> entry : legacyToMiniMessageColors.entrySet()) {
+            for (Map.Entry<String, String> entry : LPC.getLegacyToMiniMessageCodes().entrySet()) {
                 message = message.replace(entry.getValue(), entry.getKey());
             }
         }
