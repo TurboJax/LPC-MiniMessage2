@@ -7,14 +7,11 @@
 </p>
 
 <p align="center">
-  <a href="https://discord.gg/ZPyb9g6Gs4">
-    <img src="https://img.shields.io/discord/1322873747535040512" alt="Discord">
-  </a>
-  <a href="https://github.com/Ayont/LPC-with-minimessage/actions/workflows/build.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/Ayont/LPC-with-minimessage/build.yml?branch=main" alt="Build Status">
+  <a href="https://discord.gg/Rr66Zt3EqR">
+    <img src="https://img.shields.io/discord/1373749975422472363" alt="Discord">
   </a>
   <a href="https://github.com/Ayont/LPC-with-minimessage/releases">
-    <img src="https://img.shields.io/github/v/release/Ayont/LPC-with-minimessage" alt="Latest Release">
+    <img src="https://img.shields.io/github/v/release/TurboJax/LPC-MiniMessage2" alt="Latest Release">
   </a>
 </p>
 
@@ -45,11 +42,11 @@
 
 ## 🧑‍💼 Permissions
 
-| Command / Feature        | Permission Node       | Description |
-|--------------------------|------------------------|--------------|
-| `/lpc reload`            | `lpc.reload`           | Reloads the configuration |
-| MiniMessage colors       | `lpc.colorcodes`       | Allows using MiniMessage color codes |
-| `[ITEM]` Placeholder     | `lpc.itemplaceholder`  | Enables the `[ITEM]` placeholder in chat |
+| Command / Feature        | Permission            | Description                      |
+|--------------------------|-----------------------|----------------------------------|
+| `/lpc reload`            | `lpc.reload`          | Reloads the config               |
+| MiniMessage colors       | `lpc.colorcodes`      | Allows using MiniMessage codes   |
+| `[ITEM]` Placeholder     | `lpc.itemplaceholder` | Enables the `[ITEM]` placeholder |
 
 ---
 
@@ -82,18 +79,18 @@ reload-message: "<green>LPC configuration reloaded successfully!"
 
 ## 🪄 Available Placeholders
 
-| Placeholder             | Description |
-|-------------------------|-------------|
-| `{message}`             | The chat message |
-| `{name}`                | Player's name |
-| `{displayname}`         | Display name / nickname |
-| `{world}`               | Player's current world |
-| `{prefix}`              | Highest priority prefix |
-| `{suffix}`              | Highest priority suffix |
-| `{prefixes}`            | Sorted list of all prefixes |
-| `{suffixes}`            | Sorted list of all suffixes |
-| `{username-color}`      | Username color from meta |
-| `{message-color}`       | Message color from meta |
+| Placeholder        | Description                 |
+|--------------------|-----------------------------|
+| `{message}`        | The chat message            |
+| `{name}`           | Player's name               |
+| `{displayname}`    | Display name / nickname     |
+| `{world}`          | Player's current world      |
+| `{prefix}`         | Highest priority prefix     |
+| `{suffix}`         | Highest priority suffix     |
+| `{prefixes}`       | Sorted list of all prefixes |
+| `{suffixes}`       | Sorted list of all suffixes |
+| `{username-color}` | Username color from meta    |
+| `{message-color}`  | Message color from meta     |
 
 > ℹ️ **Important:** All color values (prefix, suffix, etc.) must be in **MiniMessage format** – no legacy codes (`&a`, `§b`, etc.)
 
@@ -122,4 +119,4 @@ reload-message: "<green>LPC configuration reloaded successfully!"
 ## 📌 Notes
 
 - **Not affiliated with LuckPerms** – Please do not contact the LuckPerms author for support!
-- Legacy version available at: [GitHub Legacy LPC](https://github.com/wikmor/LPC)
+- Legacy formatting version available at: [GitHub LPC](https://github.com/ThePM2/LPC)
