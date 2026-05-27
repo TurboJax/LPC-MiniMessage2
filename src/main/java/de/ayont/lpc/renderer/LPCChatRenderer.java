@@ -14,14 +14,13 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.cacheddata.CachedMetaData;
 import net.luckperms.api.track.Track;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
 public class LPCChatRenderer implements ChatRenderer {
-
     private final LuckPerms luckPerms;
     private final LPC plugin;
     private final MiniMessage miniMessage;
@@ -59,8 +58,7 @@ public class LPCChatRenderer implements ChatRenderer {
         this.luckPerms = LuckPermsProvider.get();
         this.plugin = plugin;
         this.miniMessage = MiniMessage.miniMessage();
-        PluginManager pluginManager = plugin.getServer().getPluginManager();
-        hasPapi = pluginManager.getPlugin("PlaceholderAPI") != null;
+        hasPapi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
     }
 
     @Override
