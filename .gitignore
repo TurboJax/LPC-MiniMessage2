@@ -2,6 +2,9 @@
 .gradle/
 build/
 
+# Dev server
+run/
+
 # IDE-Specific folders
 .idea/
 .idea_modules/
