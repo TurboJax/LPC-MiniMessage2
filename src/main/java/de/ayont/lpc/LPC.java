@@ -1,7 +1,7 @@
 package de.ayont.lpc;
 
 import de.ayont.lpc.commands.LPCCommand;
-import de.ayont.lpc.listener.AsyncChatListener;
+import de.ayont.lpc.listener.PaperChatListener;
 import de.ayont.lpc.listener.SpigotChatListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,7 +83,7 @@ public final class LPC extends JavaPlugin {
 
     private void registerListeners() {
         if (isPaper) {
-            getServer().getPluginManager().registerEvents(new AsyncChatListener(this), this);
+            getServer().getPluginManager().registerEvents(new PaperChatListener(this), this);
         } else {
             getServer().getPluginManager().registerEvents(new SpigotChatListener(this), this);
         }

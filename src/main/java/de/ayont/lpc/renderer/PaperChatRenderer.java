@@ -19,13 +19,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class LPCChatRenderer implements ChatRenderer {
+public class PaperChatRenderer implements ChatRenderer {
     private final LuckPerms luckPerms;
     private final LPC plugin;
     private final MiniMessage miniMessage;
     private final boolean hasPapi;
 
-    public LPCChatRenderer(LPC plugin) {
+    public PaperChatRenderer(LPC plugin) {
         this.luckPerms = LuckPermsProvider.get();
         this.plugin = plugin;
         this.miniMessage = MiniMessage.miniMessage();
