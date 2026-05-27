@@ -1,0 +1,21 @@
+[versions]
+shadow = "9.4.1"
+spotless = "8.5.1"
+run-paper = "3.0.2"
+minecraft = "1.21.11+"
+luckperms = "5.5"
+papi = "2.12.2"
+adventure = "4.26.1"
+adventure-bukkit = "4.4.1"
+
+[plugins]
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }
+
+[libraries]
+paper = { module = "io.papermc.paper:paper-api", version.ref = "minecraft" }
+luckperms = { module = "net.luckperms:api", version.ref = "luckperms" }
+papi = { module = "me.clip:placeholderapi", version.ref = "papi" }
+adventure = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure" }
+adventure-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "adventure-bukkit" }
