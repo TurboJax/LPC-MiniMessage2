@@ -22,6 +22,7 @@ import net.md_5.bungee.api.chat.hover.content.ItemSerializer;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -67,40 +68,37 @@ public class BukkitChatRenderer implements LPCChatRenderer {
             if (player.hasPermission("lpc.itemplaceholder")) {
                 ItemStack item = player.getInventory().getItemInMainHand();
                 ItemMeta meta = item.getItemMeta();
+                if (item.getType() != Material.AIR && meta != null) {
+                    // Setting up the Item deserializer
+                    Gson gson =
+                            new GsonBuilder()
+                                    .registerTypeAdapter(Item.class, new ItemSerializer())
+                                    .create();
 
-                if (meta == null) {
-                    // todo: thing
+                    // Converting the item nbt to a HoverEvent.
+                    Item hoverItem = gson.fromJson(meta.getAsString(), Item.class);
+                    HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_ITEM, hoverItem);
+
+                    // Getting the item's name
+                    String displayName = "";
+                    if (meta.hasDisplayName()) {
+                        displayName = meta.getDisplayName();
+                    } else {
+                        displayName = meta.getItemName();
+                    }
+
+                    BaseComponent component = ComponentSerializer.deserialize(displayName);
+                    component.setHoverEvent(hoverEvent);
+
+                    var adventure =
+                            BungeeComponentSerializer.get()
+                                    .deserialize(new BaseComponent[]{component});
+
+                    String hoverTag = miniMessage.serialize(adventure);
+
+                    Pattern pattern = Pattern.compile("\\[item]", Pattern.CASE_INSENSITIVE);
+                    plainMessage = pattern.matcher(plainMessage).replaceAll(hoverTag);
                 }
-
-                // Setting up the Item deserializer
-                Gson gson =
-                        new GsonBuilder()
-                                .registerTypeAdapter(Item.class, new ItemSerializer())
-                                .create();
-
-                // Converting the item nbt to a HoverEvent.
-                Item hoverItem = gson.fromJson(meta.getAsString(), Item.class);
-                HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_ITEM, hoverItem);
-
-                // Getting the item's name
-                String displayName = "";
-                if (meta.hasDisplayName()) {
-                    displayName = meta.getDisplayName();
-                } else {
-                    displayName = meta.getItemName();
-                }
-
-                BaseComponent component = ComponentSerializer.deserialize(displayName);
-                component.setHoverEvent(hoverEvent);
-
-                var adventure =
-                        BungeeComponentSerializer.get()
-                                .deserialize(new BaseComponent[] {component});
-
-                String hoverTag = miniMessage.serialize(adventure);
-
-                Pattern pattern = Pattern.compile("\\[item]", Pattern.CASE_INSENSITIVE);
-                plainMessage = pattern.matcher(plainMessage).replaceAll(hoverTag);
             }
         }
 

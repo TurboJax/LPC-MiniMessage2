@@ -16,6 +16,7 @@ import net.luckperms.api.cacheddata.CachedMetaData;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.track.Track;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -70,12 +71,13 @@ public class PaperChatRenderer implements LPCChatRenderer, ChatRenderer {
         // Parsing the item placeholder
         if (plugin.getConfig().getBoolean("use-item-placeholder", true)) {
             if (player.hasPermission("lpc.itemplaceholder")) {
-                // TODO: Fix for spigot
                 ItemStack item = player.getInventory().getItemInMainHand();
-                String hoverTag = miniMessage.serialize(item.effectiveName().hoverEvent(item));
+                if (item.getType() != Material.AIR) {
+                    String hoverTag = miniMessage.serialize(item.effectiveName().hoverEvent(item));
 
-                Pattern pattern = Pattern.compile("\\[item]", Pattern.CASE_INSENSITIVE);
-                plainMessage = pattern.matcher(plainMessage).replaceAll(hoverTag);
+                    Pattern pattern = Pattern.compile("\\[item]", Pattern.CASE_INSENSITIVE);
+                    plainMessage = pattern.matcher(plainMessage).replaceAll(hoverTag);
+                }
             }
         }
 
