@@ -11,6 +11,8 @@ dependencies {
 }
 
 allprojects {
+    apply(plugin = "com.diffplug.spotless")
+
     group = "de.ayont"
     version = "3.8.0"
 
@@ -21,28 +23,6 @@ allprojects {
         maven("https://hub.spigotmc.org/nexus/content/groups/public/")
 
         maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
-    }
-}
-
-subprojects {
-    apply(plugin = "java-library")
-    apply(plugin = "com.diffplug.spotless")
-
-    dependencies {
-        compileOnly(rootProject.libs.luckperms)
-        compileOnly(rootProject.libs.papi)
-        implementation(rootProject.libs.adventure)
-        implementation(rootProject.libs.adventure.bukkit)
-    }
-
-    val targetJavaVersion = 25
-    java {
-        val javaVersion = JavaVersion.toVersion(targetJavaVersion)
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-        if (JavaVersion.current() < javaVersion) {
-            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-        }
     }
 
     spotless {
@@ -66,6 +46,27 @@ subprojects {
                 .formatJavadoc(false)
                 .reorderImports(false)
                 .groupArtifact("com.google.googlejavaformat:google-java-format")
+        }
+    }
+}
+
+subprojects {
+    apply(plugin = "java-library")
+
+    dependencies {
+        compileOnly(rootProject.libs.luckperms)
+        compileOnly(rootProject.libs.papi)
+        implementation(rootProject.libs.adventure)
+        implementation(rootProject.libs.adventure.bukkit)
+    }
+
+    val targetJavaVersion = 25
+    java {
+        val javaVersion = JavaVersion.toVersion(targetJavaVersion)
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
+        if (JavaVersion.current() < javaVersion) {
+            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
         }
     }
 
