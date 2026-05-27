@@ -32,6 +32,7 @@ subprojects {
         compileOnly(rootProject.libs.luckperms)
         compileOnly(rootProject.libs.papi)
         implementation(rootProject.libs.adventure)
+        implementation(rootProject.libs.adventure.bukkit)
     }
 
     val targetJavaVersion = 25
