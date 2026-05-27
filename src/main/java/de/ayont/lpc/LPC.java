@@ -50,7 +50,7 @@ public final class LPC extends JavaPlugin {
         return legacySerializer;
     }
 
-    public static Map<String,String> getLegacyToMiniMessageCodes() {
+    public static Map<String, String> getLegacyToMiniMessageCodes() {
         return Map.copyOf(legacyToMiniMessageCodes);
     }
 
