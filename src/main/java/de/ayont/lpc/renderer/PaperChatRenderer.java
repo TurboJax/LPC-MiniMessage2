@@ -125,7 +125,7 @@ public class PaperChatRenderer implements ChatRenderer {
             format = PlaceholderAPI.setPlaceholders(source, format);
         }
 
-        // Rendering the deserialized message
+        // Returning the deserialized message
         return miniMessage.deserialize(format);
     }
 }
