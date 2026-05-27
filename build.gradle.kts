@@ -16,6 +16,7 @@ mcVersion = mcVersion.substring(0, mcVersion.length - 1)
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://hub.spigotmc.org/nexus/content/groups/public/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 }
 
