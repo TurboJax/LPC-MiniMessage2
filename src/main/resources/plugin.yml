@@ -1,11 +1,11 @@
-name: LPC
+name: LPC-MiniMessage
 version: "${version}"
 main: de.ayont.lpc.LPC
 api-version: "1.21"
-authors: [Ayont, Varilx-Development]
+authors: [TurboJax, Ayont]
 depend: [LuckPerms]
 softdepend: [PlaceholderAPI]
-description: Edit version of wikmors Legacy LPC plugin (Minimessage Support 1.21.5)
+description: Continuation of LPC-Minimessage by Ayont
 website: https://modrinth.com/plugin/lpc-chat
 commands:
   lpc:
