@@ -39,12 +39,16 @@ public class PaperChatRenderer implements LPCChatRenderer, ChatRenderer {
 
     @Override
     public @NonNull Component render(@NonNull Player source, @NonNull Component sourceDisplayName, @NonNull Component message, @NonNull Audience viewer) {
-        return render(source, PlainTextComponentSerializer.plainText().serialize(message));
+        return render(luckPerms.getPlayerAdapter(Player.class).getUser(source), PlainTextComponentSerializer.plainText().serialize(message));
     }
 
     @Override
     public @NotNull Component render(User user, String plainMessage) {
         final CachedMetaData metaData = user.getCachedData().getMetaData();
+
+        final Player player = Bukkit.getPlayer(user.getUniqueId());
+        assert player != null : "Player needs to have a valid UUID.";
+
         final String group = metaData.getPrimaryGroup();
         assert group != null : "Primary group cannot be null";
 
