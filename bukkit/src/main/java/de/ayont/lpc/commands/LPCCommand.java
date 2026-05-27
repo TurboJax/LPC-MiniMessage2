@@ -1,9 +1,11 @@
 package de.ayont.lpc.commands;
 
-import de.ayont.lpc.LPC;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import de.ayont.lpc.LPCPlugin;
+import de.ayont.lpc.api.LPC;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
@@ -13,9 +15,9 @@ import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 
 public class LPCCommand implements CommandExecutor, TabCompleter {
-    private final LPC plugin;
+    private final LPCPlugin plugin;
 
-    public LPCCommand(LPC plugin) {
+    public LPCCommand(LPCPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -33,11 +35,7 @@ public class LPCCommand implements CommandExecutor, TabCompleter {
                                     "reload-message", "<green>Reloaded LPC Configuration!</green>");
             Component message = MiniMessage.miniMessage().deserialize(rawReloadMessage);
 
-            if (plugin.isPaper()) {
-                sender.sendMessage(message);
-            } else {
-                sender.sendMessage(LPC.getLegacySerializer().serialize(message));
-            }
+            sender.sendMessage(LPC.getLegacySerializer().serialize(message));
             return true;
         }
 
