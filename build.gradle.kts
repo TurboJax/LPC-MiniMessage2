@@ -65,13 +65,6 @@ subprojects {
     }
 
     tasks {
-        shadowJar {
-            archiveFileName.set("LPC.java-Minimessage2-${project.name}.jar")
-            mergeServiceFiles {
-                exclude("META-INF/*.DSA", "META-INF/*.RSA")
-            }
-        }
-
         withType<JavaCompile>().configureEach {
             options.encoding = "UTF-8"
             options.release.set(targetJavaVersion)
