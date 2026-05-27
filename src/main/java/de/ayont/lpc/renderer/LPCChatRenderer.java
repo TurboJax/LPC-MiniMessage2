@@ -71,14 +71,14 @@ public class LPCChatRenderer implements ChatRenderer {
         final String group =
                 Objects.requireNonNull(metaData.getPrimaryGroup(), "Primary group cannot be null");
 
-        boolean hasPermission = source.hasPermission("lpc.chatcolor");
-
         String plainMessage = PlainTextComponentSerializer.plainText().serialize(message);
 
-        if (hasPermission) {
+        if (source.hasPermission("lpc.chatcolor")) {
             for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {
                 plainMessage = plainMessage.replace(entry.getKey(), entry.getValue());
             }
+        } else {
+            miniMessage.escapeTags(plainMessage);
         }
 
         String formatKey = "group-formats." + group;
@@ -129,12 +129,6 @@ public class LPCChatRenderer implements ChatRenderer {
                                         ? Objects.requireNonNull(
                                                 metaData.getMetaValue("message-color"))
                                         : "");
-
-        if (!hasPermission) {
-            for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {
-                plainMessage = plainMessage.replace(entry.getValue(), entry.getKey());
-            }
-        }
 
         format = format.replace("{message}", plainMessage);
 
