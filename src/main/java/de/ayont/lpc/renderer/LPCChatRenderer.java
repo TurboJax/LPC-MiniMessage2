@@ -1,11 +1,9 @@
 package de.ayont.lpc.renderer;
 
 import de.ayont.lpc.LPC;
-import io.papermc.paper.chat.ChatRenderer;
 import java.util.Map;
 import java.util.regex.Pattern;
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -19,31 +17,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class PaperChatRenderer implements ChatRenderer {
+public class LPCChatRenderer {
     private final LuckPerms luckPerms;
     private final LPC plugin;
     private final MiniMessage miniMessage;
     private final boolean hasPapi;
 
-    public PaperChatRenderer(LPC plugin) {
+    public LPCChatRenderer(LPC plugin) {
         this.luckPerms = LuckPermsProvider.get();
         this.plugin = plugin;
         this.miniMessage = MiniMessage.miniMessage();
         hasPapi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
     }
 
-    @Override
-    public @NotNull Component render(
-            @NotNull Player source,
-            @NotNull Component sourceDisplayName,
-            @NotNull Component message,
-            @NotNull Audience viewer) {
+    public @NotNull Component render(Player player, String plainMessage) {
         final CachedMetaData metaData =
-                this.luckPerms.getPlayerAdapter(Player.class).getMetaData(source);
+                this.luckPerms.getPlayerAdapter(Player.class).getMetaData(player);
         final String group = metaData.getPrimaryGroup();
         assert group != null : "Primary group cannot be null";
-
-        String plainMessage = PlainTextComponentSerializer.plainText().serialize(message);
 
         // Replacing legacy codes
         for (Map.Entry<String, String> entry : LPC.getLegacyToMiniMessageCodes().entrySet()) {
@@ -51,14 +42,15 @@ public class PaperChatRenderer implements ChatRenderer {
         }
 
         // Escaping all tags if the player doesn't have the permission to use the formatter
-        if (!source.hasPermission("lpc.chatcolor")) {
+        if (!player.hasPermission("lpc.chatcolor")) {
             plainMessage = miniMessage.escapeTags(plainMessage);
         }
 
         // Parsing the item placeholder
         if (plugin.getConfig().getBoolean("use-item-placeholder", true)) {
-            if (source.hasPermission("lpc.itemplaceholder")) {
-                ItemStack item = source.getInventory().getItemInMainHand();
+            if (player.hasPermission("lpc.itemplaceholder")) {
+                // TODO: Fix for spigot
+                ItemStack item = player.getInventory().getItemInMainHand();
                 String hoverTag = miniMessage.serialize(item.effectiveName().hoverEvent(item));
 
                 Pattern pattern = Pattern.compile("\\[item]", Pattern.CASE_INSENSITIVE);
@@ -100,12 +92,12 @@ public class PaperChatRenderer implements ChatRenderer {
                                 metaData.getSuffix() != null ? metaData.getSuffix() : "")
                         .replace("{prefixes}", String.join(" ", metaData.getPrefixes().values()))
                         .replace("{suffixes}", String.join(" ", metaData.getSuffixes().values()))
-                        .replace("{world}", source.getWorld().getName())
-                        .replace("{name}", source.getName())
+                        .replace("{world}", player.getWorld().getName())
+                        .replace("{name}", player.getName())
                         .replace(
                                 "{displayname}",
                                 PlainTextComponentSerializer.plainText()
-                                        .serialize(source.displayName()))
+                                        .serialize(player.displayName()))
                         .replace(
                                 "{username-color}",
                                 metaData.getMetaValue("username-color") != null
@@ -122,7 +114,7 @@ public class PaperChatRenderer implements ChatRenderer {
 
         // Applying placeholders if PAPI is found
         if (hasPapi) {
-            format = PlaceholderAPI.setPlaceholders(source, format);
+            format = PlaceholderAPI.setPlaceholders(player, format);
         }
 
         // Returning the deserialized message
