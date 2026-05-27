@@ -2,12 +2,23 @@ plugins {
     `java-library`
     alias(libs.plugins.shadow)
     alias(libs.plugins.spotless)
+    alias(libs.plugins.run.paper)
 }
 
 dependencies {
     implementation(project(":api"))
     implementation(project(":bukkit"))
     implementation(project(":paper"))
+}
+
+// Getting the minecraft version from the version catalog
+var mcVersion = libs.versions.minecraft.get()
+mcVersion = mcVersion.substring(0, mcVersion.length - 1)
+
+tasks {
+    runServer {
+        minecraftVersion(mcVersion)
+    }
 }
 
 allprojects {
