@@ -1,7 +1,5 @@
 package de.ayont.lpc.listener;
 
-import static java.util.regex.Pattern.*;
-
 import de.ayont.lpc.LPC;
 import de.ayont.lpc.renderer.LPCChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
