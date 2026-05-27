@@ -2,7 +2,9 @@ package de.ayont.lpc.renderer;
 
 import de.ayont.lpc.LPC;
 import io.papermc.paper.chat.ChatRenderer;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -14,6 +16,7 @@ import net.luckperms.api.cacheddata.CachedMetaData;
 import net.luckperms.api.track.Track;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -68,12 +71,12 @@ public class LPCChatRenderer implements ChatRenderer {
             @NotNull Audience viewer) {
         final CachedMetaData metaData =
                 this.luckPerms.getPlayerAdapter(Player.class).getMetaData(source);
-        final String group =
-                Objects.requireNonNull(metaData.getPrimaryGroup(), "Primary group cannot be null");
+        final String group = metaData.getPrimaryGroup();
+        assert group != null : "Primary group cannot be null";
 
         String plainMessage = PlainTextComponentSerializer.plainText().serialize(message);
 
-        // Serializing legacy codes
+        // Replacing legacy codes
         for (Map.Entry<String, String> entry : legacyToMiniMessageCodes.entrySet()) {
             plainMessage = plainMessage.replace(entry.getKey(), entry.getValue());
         }
@@ -83,9 +86,22 @@ public class LPCChatRenderer implements ChatRenderer {
             plainMessage = miniMessage.escapeTags(plainMessage);
         }
 
+        // Parsing the item placeholder
+        if (plugin.getConfig().getBoolean("use-item-placeholder", true)) {
+            if (source.hasPermission("lpc.itemplaceholder")) {
+                ItemStack item = source.getInventory().getItemInMainHand();
+                String hoverTag = miniMessage.serialize(item.effectiveName().hoverEvent(item));
+
+                Pattern pattern = Pattern.compile("\\[item]", Pattern.CASE_INSENSITIVE);
+                plainMessage = pattern.matcher(plainMessage).replaceAll(hoverTag);
+            }
+        }
+
+        // Checking if the player's group has a chat format
         String formatKey = "group-formats." + group;
         String format = plugin.getConfig().getString(formatKey);
 
+        // Checking for an applicable track format
         if (format == null) {
             ConfigurationSection trackFormatsSection =
                     plugin.getConfig().getConfigurationSection("track-formats");
@@ -102,10 +118,12 @@ public class LPCChatRenderer implements ChatRenderer {
             }
         }
 
+        // Falling back to the default format
         if (format == null) {
             format = plugin.getConfig().getString("chat-format");
         }
 
+        // Applying data to the selected format
         format =
                 format.replace("{prefix}", metaData.getPrefix() != null ? metaData.getPrefix() : "")
                         .replace(
@@ -122,22 +140,23 @@ public class LPCChatRenderer implements ChatRenderer {
                         .replace(
                                 "{username-color}",
                                 metaData.getMetaValue("username-color") != null
-                                        ? Objects.requireNonNull(
-                                                metaData.getMetaValue("username-color"))
+                                        ? metaData.getMetaValue("username-color")
                                         : "")
                         .replace(
                                 "{message-color}",
                                 metaData.getMetaValue("message-color") != null
-                                        ? Objects.requireNonNull(
-                                                metaData.getMetaValue("message-color"))
+                                        ? metaData.getMetaValue("message-color")
                                         : "");
 
+        // Replacing the main message part of the format.
         format = format.replace("{message}", plainMessage);
 
+        // Applying placeholders if PAPI is found
         if (hasPapi) {
             format = PlaceholderAPI.setPlaceholders(source, format);
         }
 
+        // Rendering the deserialized message
         return miniMessage.deserialize(format);
     }
 }
