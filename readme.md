@@ -127,15 +127,15 @@ reload-message: "<green>LPC configuration reloaded successfully!"
 ## ⚙ Support:
 
 | LuckPerms Software        | Planned Support |
-|---------------------------------------------|
+|---------------------------|-----------------|
 | Paper/Spigot 1.8.8-1.21   | 🔧 Planned      |
-| Paper/Spigot 1.21-latest  | ✅ Supported    |
+| Paper/Spigot 1.21-latest  | ✅ Supported     |
 | Fabric 26.1               | 🔧 Planned      |
 | NeoForge 26.1             | 🔧 Planned      |
 | Forge 26.1                | 🔧 Planned      |
-| Hytale beta               | ❌ Unplanned    |
+| Hytale beta               | ❌ Unplanned     |
 | Velocity 3.x              | 🔧 Planned      |
 | Sponge 12                 | 🔧 Planned      |
-| Nukkit                    | ❌ Unplanned    |
+| Nukkit                    | ❌ Unplanned     |
 | Bungeecord                | 🔧 Planned      |
 | Bukkit-Legacy 1.7.10      | 🔧 Planned      |
