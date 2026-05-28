@@ -24,10 +24,21 @@ public class LPCPlugin extends JavaPlugin {
     }
 
     public void registerListeners() {
-        if (LPC.isPaper()) {
+        if (checkIfPaper()) {
             Bukkit.getPluginManager().registerEvents(new PaperChatListener(this), this);
         } else {
             Bukkit.getPluginManager().registerEvents(new SpigotChatListener(this), this);
+        }
+    }
+
+    private static boolean checkIfPaper() {
+        try {
+            Class.forName("io.papermc.paper.event.player.AsyncChatEvent");
+            LPC.LOGGER.info("Paper API has been detected and will be used.");
+            return true;
+        } catch (ClassNotFoundException e) {
+            LPC.LOGGER.info("Spigot API has been detected and will be used.");
+            return false;
         }
     }
 }
