@@ -8,7 +8,6 @@ plugins {
 dependencies {
     implementation(project(":api"))
     implementation(project(":bukkit"))
-    implementation(project(":paper"))
 }
 
 // Getting the minecraft version from the version catalog

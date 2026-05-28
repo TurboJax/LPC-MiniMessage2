@@ -1,6 +1,6 @@
 name: LPC-MiniMessage
 version: "${version}"
-main: de.ayont.lpc.LPCPlugin
+main: de.ayont.lpc.bukkit.LPCPlugin
 api-version: "1.21"
 authors: [TurboJax, Ayont]
 depend: [LuckPerms]

@@ -1,7 +1,7 @@
-package de.ayont.lpc.commands;
+package de.ayont.lpc.bukkit.commands;
 
-import de.ayont.lpc.LPCPlugin;
 import de.ayont.lpc.api.LPC;
+import de.ayont.lpc.bukkit.LPCPlugin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

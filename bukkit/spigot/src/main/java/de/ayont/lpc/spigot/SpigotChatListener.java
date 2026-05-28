@@ -1,4 +1,4 @@
-package de.ayont.lpc.bukkit;
+package de.ayont.lpc.spigot;
 
 import de.ayont.lpc.api.LPC;
 import de.ayont.lpc.api.LPCChatRenderer;
@@ -11,11 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BukkitChatListener implements Listener {
+public class SpigotChatListener implements Listener {
     private final LPCChatRenderer chatRenderer;
 
-    public BukkitChatListener(JavaPlugin plugin) {
-        this.chatRenderer = new BukkitChatRenderer(plugin);
+    public SpigotChatListener(JavaPlugin plugin) {
+        this.chatRenderer = new SpigotChatRenderer(plugin);
     }
 
     @EventHandler(priority = EventPriority.NORMAL)

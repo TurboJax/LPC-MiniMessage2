@@ -1,4 +1,4 @@
-package de.ayont.lpc.bukkit;
+package de.ayont.lpc.spigot;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,13 +28,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-public class BukkitChatRenderer implements LPCChatRenderer {
+public class SpigotChatRenderer implements LPCChatRenderer {
     private final LuckPerms luckPerms;
     private final JavaPlugin plugin;
     private final MiniMessage miniMessage;
     private final boolean hasPapi;
 
-    public BukkitChatRenderer(JavaPlugin plugin) {
+    public SpigotChatRenderer(JavaPlugin plugin) {
         this.luckPerms = LuckPermsProvider.get();
         this.plugin = plugin;
         this.miniMessage = MiniMessage.miniMessage();

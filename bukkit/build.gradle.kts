@@ -5,7 +5,8 @@ mcVersion = mcVersion.substring(0, mcVersion.length - 1)
 dependencies {
     compileOnly(libs.spigot)
     compileOnly(project(":api"))
-    compileOnly(project(":paper")) // for loading paper impl
+    compileOnly(project(":bukkit:spigot"))
+    compileOnly(project(":bukkit:paper"))
 }
 
 // Configuring tasks

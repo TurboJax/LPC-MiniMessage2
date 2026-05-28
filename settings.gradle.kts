@@ -4,4 +4,4 @@ plugins {
 
 rootProject.name = "LPC-Minimessage2"
 
-include("api", "bukkit", "paper")
+include("api", "bukkit", "bukkit:paper", "bukkit:spigot")
