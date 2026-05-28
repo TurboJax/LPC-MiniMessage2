@@ -1,9 +1,7 @@
 package de.ayont.lpc.paper;
 
-import de.ayont.lpc.api.LPC;
 import de.ayont.lpc.api.LPCChatRenderer;
 import io.papermc.paper.chat.ChatRenderer;
-import java.util.Map;
 import java.util.regex.Pattern;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.audience.Audience;
@@ -57,11 +55,6 @@ public class PaperChatRenderer implements LPCChatRenderer, ChatRenderer {
 
         final String group = metaData.getPrimaryGroup();
         assert group != null : "Primary group cannot be null";
-
-        // Replacing legacy codes
-        for (Map.Entry<String, String> entry : LPC.getLegacyToMiniMessageCodes().entrySet()) {
-            plainMessage = plainMessage.replace(entry.getKey(), entry.getValue());
-        }
 
         // Escaping all tags if the player doesn't have the permission to use the formatter
         if (!player.hasPermission("lpc.chatcolor")) {

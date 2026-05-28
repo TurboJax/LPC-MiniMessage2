@@ -1,7 +1,5 @@
 package de.ayont.lpc.api;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
@@ -14,34 +12,6 @@ public class LPC {
                     .useUnusualXRepeatedCharacterHexFormat()
                     .build();
 
-    private static final Map<String, String> legacyToMiniMessageCodes =
-            new HashMap<>() {
-                {
-                    put("&0", "<black>");
-                    put("&1", "<dark_blue>");
-                    put("&2", "<dark_green>");
-                    put("&3", "<dark_aqua>");
-                    put("&4", "<dark_red>");
-                    put("&5", "<dark_purple>");
-                    put("&6", "<gold>");
-                    put("&7", "<gray>");
-                    put("&8", "<dark_gray>");
-                    put("&9", "<blue>");
-                    put("&a", "<green>");
-                    put("&b", "<aqua>");
-                    put("&c", "<red>");
-                    put("&d", "<light_purple>");
-                    put("&e", "<yellow>");
-                    put("&f", "<white>");
-                    put("&k", "<obf>");
-                    put("&l", "<b>");
-                    put("&m", "<st>");
-                    put("&n", "<u>");
-                    put("&o", "<i>");
-                    put("&r", "<reset>");
-                }
-            };
-
     private static final boolean isPaper = checkIfPaper();
 
     private LPC() {}
@@ -52,10 +22,6 @@ public class LPC {
 
     public static LegacyComponentSerializer getLegacySerializer() {
         return legacySerializer;
-    }
-
-    public static Map<String, String> getLegacyToMiniMessageCodes() {
-        return Map.copyOf(legacyToMiniMessageCodes);
     }
 
     private static boolean checkIfPaper() {
