@@ -120,3 +120,22 @@ reload-message: "<green>LPC configuration reloaded successfully!"
 
 - **Not affiliated with LuckPerms** – Please do not contact the LuckPerms author for support!
 - Legacy formatting version available at: [GitHub LPC](https://github.com/ThePM2/LPC)
+
+
+---
+
+## ⚙ Support:
+
+| LuckPerms Software        | Planned Support |
+|---------------------------------------------|
+| Paper/Spigot 1.8.8-1.21   | 🔧 Planned      |
+| Paper/Spigot 1.21-latest  | ✅ Supported    |
+| Fabric 26.1               | 🔧 Planned      |
+| NeoForge 26.1             | 🔧 Planned      |
+| Forge 26.1                | 🔧 Planned      |
+| Hytale beta               | ❌ Unplanned    |
+| Velocity 3.x              | 🔧 Planned      |
+| Sponge 12                 | 🔧 Planned      |
+| Nukkit                    | ❌ Unplanned    |
+| Bungeecord                | 🔧 Planned      |
+| Bukkit-Legacy 1.7.10      | 🔧 Planned      |
