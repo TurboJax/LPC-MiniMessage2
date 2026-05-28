@@ -1,0 +1,15 @@
+Bukkit:
+- src/main/resources/plugin.yml
+BungeeCord Notes:
+- src/main/resources/bungee.yml
+Fabric
+- src/main/resources/fabric.mod.json
+Forge
+- src/main/resources/META-INF/mods.toml
+NeoForge
+- src/main/resources/META-INF/neoforge.mods.toml
+Sponge
+- src/main/resources/META-INF/sponge-plugins.json
+- sponge-plugins.json has a gradle integration and can be auto-generated on build.
+Velocity
+- src/main/resources/velocity-plugin.json
