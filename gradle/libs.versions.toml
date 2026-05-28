@@ -1,8 +1,21 @@
 [versions]
+# Plugins
 shadow = "9.4.1"
 spotless = "8.5.1"
 run-paper = "3.0.2"
-minecraft = "1.21.11+"
+loom = "1.16-SNAPSHOT"
+moddevgradle = "2.0.141"
+forgegradle = "[7.0.13,8.0)"
+
+# Minecraft/Platform
+bungeecord = "1.19+"
+fabric = "0.19.2"
+forge = "26.1-62.0.1"
+minecraft = "26.1+"
+neoforge = "26.1.0.1-beta"
+velocity = "3.1.1"
+
+# Dependencies
 luckperms = "5.5"
 papi = "2.12.2"
 adventure = "4.26.1"
@@ -12,11 +25,23 @@ adventure-bukkit = "4.4.1"
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }
+moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
+forgegradle = { id = "net.minecraftforge.gradle", version.ref = "forgegradle" }
+loom = { id = "net.fabricmc.fabric-loom", version.ref = "loom" }
 
 [libraries]
+bungeecord = { module = "net.md-5:bungeecord-api", version.ref = "bungeecord"}
+fabric = { module = "net.fabricmc:fabric-loader", version.ref = "fabric" }
 paper = { module = "io.papermc.paper:paper-api", version.ref = "minecraft" }
 spigot = { module = "org.spigotmc:spigot-api", version.ref = "minecraft" }
+velocity = { module = "com.velocitypowered:velocity-api", version.ref = "velocity" }
 luckperms = { module = "net.luckperms:api", version.ref = "luckperms" }
 papi = { module = "me.clip:placeholderapi", version.ref = "papi" }
 adventure = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure" }
+
+# Do i need all of these?
 adventure-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "adventure-bukkit" }
+adventure-bungeecord = { module = "net.kyori:adventure-platform-bungeecord", version.ref = "adventure-bukkit" }
+adventure-fabric = { module = "net.kyori:adventure-platform-fabric", version.ref = "adventure-bukkit" }
+adventure-neoforge = { module = "net.kyori:adventure-platform-neoforge", version.ref = "adventure-bukkit" }
+adventure-sponge = { module = "net.kyori:adventure-platform-spongeapi", version.ref = "adventure-bukkit" }
