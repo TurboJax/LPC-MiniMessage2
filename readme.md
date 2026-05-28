@@ -138,4 +138,4 @@ reload-message: "<green>LPC configuration reloaded successfully!"
 | Sponge 12                 | 🔧 Planned      |
 | Nukkit                    | ❌ Unplanned     |
 | Bungeecord                | 🔧 Planned      |
-| Bukkit-Legacy 1.7.10      | 🔧 Planned      |
+| Bukkit-Legacy 1.7.10      | ❌ Unplanned     |
